@@ -27,14 +27,14 @@ AND MONTH(`prenotazioni`.`created_at`) = '05';
 
 
 - Fai la somma di tutti i prezzi delle prenotazioni per le stanze del primo piano
-SELECT `stanze`.`beds`,
-SUM(`pagamenti`.`price`)
-FROM `pagamenti`
-INNER JOIN `prenotazioni`
-ON `pagamenti`.`prenotazione_id` = `prenotazioni`.`id`
+SELECT SUM(`pagamenti`.`price`) AS `tot_price`, `stanze`.`floor`
+FROM `prenotazioni`
+INNER JOIN `pagamenti`
+ON `prenotazioni`.`id` = `pagamenti`.`prenotazione_id`
 INNER JOIN `stanze`
 ON `prenotazioni`.`stanza_id` = `stanze`.`id`
-GROUP BY `stanze`.`floor`;
+WHERE `stanze`.`floor` = 1;
+
 
 
 - Prendi i dati di fatturazione (name, lastname e address) per la prenotazione con id=7
